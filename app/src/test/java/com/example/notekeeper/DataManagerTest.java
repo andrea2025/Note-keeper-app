@@ -70,17 +70,17 @@ public class DataManagerTest {
         assertEquals(noteIndex2, foundIndex2);
     }
 
-//    @Test
-//    public void createNewNoteOneStepCreation() {
-//        final CourseInfo course = sDataManager.getCourse("android_async");
-//        final String noteTitle = "Test note title";
-//        final String noteText = "This is the body of my test note";
-//
-//        int noteIndex = sDataManager.createNewNote(course, noteTitle, noteText);
-//
-//        NoteInfo compareNote = sDataManager.getNotes().get(noteIndex);
-//        assertEquals(course, compareNote.getCourse());
-//        assertEquals(noteTitle, compareNote.getTitle());
-//        assertEquals(noteText, compareNote.getText());
-//    }
+    @Test
+    public void createNewNoteOneStepCreation() {
+        final CourseInfo course = sDataManager.getCourse("android_async");
+        final String noteTitle = "Test note title";
+        final String noteText = "This is the body of my test note";
+
+        int noteIndex = sDataManager.createNewNote(course, noteTitle, noteText);
+
+        NoteInfo compareNote = sDataManager.getNotes().get(noteIndex);
+        assertEquals(course, compareNote.getCourse());
+        assertEquals(noteTitle, compareNote.getTitle());
+        assertEquals(noteText, compareNote.getText());
+    }
 }
