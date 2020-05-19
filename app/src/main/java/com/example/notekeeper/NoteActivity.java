@@ -24,6 +24,8 @@ public class NoteActivity extends AppCompatActivity {
     EditText textTitle;
     private int notePosition;
     private boolean isCancelling;
+    String OriginalNoteCourseId,OriginalNoteText, OriginalNoteTitle;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,7 @@ public class NoteActivity extends AppCompatActivity {
         spinnerCourse.setAdapter(adapterCourses);
 
         readDisplayedStateValues();
+        saveOriginalValues();
 
         textNote = findViewById(R.id.text_note_text);
         textTitle = findViewById(R.id.note_text_title);
@@ -50,16 +53,38 @@ public class NoteActivity extends AppCompatActivity {
 
 
     }
+
+    private void saveOriginalValues() {
+         if (mIsNewNote)
+             return;
+         OriginalNoteCourseId = mNote.getCourse().getCourseId();
+         OriginalNoteText = mNote.getText();
+         OriginalNoteTitle = mNote.getTitle();
+
+
+
+    }
+
     @Override
     protected void onPause() {
         super.onPause();
         if (isCancelling) {
             if (mIsNewNote) {
                 DataManager.getInstance().removeNote(notePosition);
+            }else {
+                storePreviousValues();
             }
+
         } else {
             saveNote();
         }
+    }
+
+    private void storePreviousValues() {
+        CourseInfo course = DataManager.getInstance().getCourse(OriginalNoteCourseId);
+        mNote.setCourse(course);
+        mNote.setText(OriginalNoteText);
+        mNote.setTitle(OriginalNoteTitle);
     }
 
     private void saveNote() {
@@ -85,8 +110,6 @@ public class NoteActivity extends AppCompatActivity {
             createNewNote();
         } else {
             mNote = DataManager.getInstance().getNotes().get(position);
-            //mNote = intent.getParcelableExtra(NOTE_POSTION);
-            // mIsNewNote = mNote == null;
 
         }
     }

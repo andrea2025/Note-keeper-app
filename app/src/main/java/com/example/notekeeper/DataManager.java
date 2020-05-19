@@ -189,6 +189,13 @@ public class DataManager {
 
         return new CourseInfo("java_core", "Java Fundamentals: The Core Platform", modules);
     }
+
+    public int createNewNote(CourseInfo course, String noteTitle, String noteText) {
+//        int index = createNewNote();
+//        NoteInfo npte = getNotes().get(index);
+//        note.set
+        return 0;
+    }
     //endregion
 
 }
